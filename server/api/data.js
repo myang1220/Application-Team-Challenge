@@ -1,4 +1,4 @@
-const faker = require("faker");
+const { faker } = require("@faker-js/faker");
 const { ICD_CODE } = require("./constants/icdCode");
 
 function makeDiagnosis(numDiagnoses) {
@@ -6,7 +6,7 @@ function makeDiagnosis(numDiagnoses) {
 
   for (let i = 0; i < numDiagnoses; i++) {
     result.push({
-      icdCode: faker.random.arrayElement(ICD_CODE),
+      icdCode: faker.helpers.arrayElement(ICD_CODE),
       timestamp: faker.date.recent(365),
     });
   }
@@ -19,12 +19,12 @@ function makeParticipants(numParticipants) {
 
   for (let i = 0; i < numParticipants; i++) {
     result.push({
-      firstName: faker.name.firstName(),
-      lastName: faker.name.lastName(),
+      firstName: faker.person.firstName(),
+      lastName: faker.person.lastName(),
       dateOfBirth: faker.date.past(10, new Date(1950, 0, 1)),
-      gender: faker.random.arrayElement(["MALE", "FEMALE", "NON-BINARY"]),
-      phoneNumber: faker.datatype.number({ min: 1000000000, max: 9999999999 }),
-      patientNotes: faker.random.arrayElement([faker.lorem.text(), null]),
+      gender: faker.helpers.arrayElement(["MALE", "FEMALE", "NON-BINARY"]),
+      phoneNumber: faker.number.int({ min: 1000000000, max: 9999999999 }),
+      patientNotes: faker.helpers.arrayElement([faker.lorem.text(), null]),
       diagnoses: makeDiagnosis(10),
     });
   }
